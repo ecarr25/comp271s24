@@ -98,5 +98,24 @@ public class DynamicArray implements BasicTools {
         return canBeAdded;
     } // method addUnique
 
+
+    /**
+     * see if this DynamicArray intersects with the other array 
+     * @param other array to see if it intersects or not 
+     * @return true if the two dynamic arrays are common if not then false
+     */
     
+
+     public boolean intersects(DynamicArray other){
+        int smallerSize = Math.min(this.position, other.position);
+
+        // see if intersection is using contains 
+        int i = 0;
+        boolean intersects = false;
+        while (!intersects && i < smallerSize){
+            intersects = other.contains(this.data[i]);
+            i++;
+        }
+        return intersects;
+     }
 } // class DynamicArray
