@@ -44,4 +44,50 @@ public class TrainLine {
             currentStation.setNext(newStation);
         }
     } // method addStation
+
+    /**
+     * see if trainline has a station with a certain name 
+     * @param The name of the station to look for 
+     * @return true if the station exists if not then false
+     */
+
+     public boolean contains(String name){
+        return containsMatches(this.head, name);
+
+     }// contains method
+
+    /**
+     * contains matches method helps find stations 
+     * @param current station in the match 
+     * @param name of the station to look for 
+     * @return true if the station exists if not then false
+     */
+
+     private boolean containsMatches(Station current, string name){
+        if (current == null){
+            return false;
+        }
+        if(current.getName().equals(name)){
+            return true;
+        }
+        return containsMatches(current.getNext(), name);
+     }// containsMatches
+
+     
+    /**
+     *  makes a string of the train line with the station names in order
+     *  @return a string of the train line
+     */
+     public String getTrainLineString() {
+        StringBuilder sb = new StringBuilder();
+        Station current = this.head;
+        while (current != null) {
+            sb.append(current.toString());
+            if (current.hasNext()) {
+                sb.append(" -> ");
+            }
+            current = current.getNext();
+        }
+        return sb.toString();
+     }
 }
