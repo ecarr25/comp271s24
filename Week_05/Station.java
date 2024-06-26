@@ -47,4 +47,14 @@ public class Station {
         return this.next;
     } // method getNext()
     
+
+    /**
+     * see the name 
+     * @returns the name of the staion
+     * 
+     */
+    public String getName(){
+        return this.name;
+    }
+
 } // class Station

@@ -65,12 +65,12 @@ public class TrainLine {
 
      private boolean containsMatches(Station current, string name){
         if (current == null){
-            return false;
+            return false; // reached the end without finding a station 
         }
         if(current.getName().equals(name)){
-            return true;
+            return true; //station found 
         }
-        return containsMatches(current.getNext(), name);
+        return containsMatches(current.getNext(), name);// move to the next station
      }// containsMatches
 
      
@@ -82,12 +82,12 @@ public class TrainLine {
         StringBuilder sb = new StringBuilder();
         Station current = this.head;
         while (current != null) {
-            sb.append(current.toString());
+            sb.append(current.toString()); // append the name of the current station
             if (current.hasNext()) {
-                sb.append(" -> ");
+                sb.append(" -> "); // add a arrow if there is another station
             }
-            current = current.getNext();
+            current = current.getNext(); // go to the next station
         }
-        return sb.toString();
+        return sb.toString(); //return to the string
      }
 }
