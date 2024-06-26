@@ -82,7 +82,7 @@ public class TrainLine {
         StringBuilder sb = new StringBuilder();
         Station current = this.head;
         while (current != null) {
-            sb.append(current.toString()); // append the name of the current station
+            sb.append(current.getName()); // append the name of the current station
             if (current.hasNext()) {
                 sb.append(" -> "); // add a arrow if there is another station
             }
