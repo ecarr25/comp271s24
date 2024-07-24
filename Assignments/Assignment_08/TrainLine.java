@@ -218,4 +218,53 @@ public class TrainLine {
         }
     } // method append
 
+    public String listStations() {
+        String result;
+        if (head == null) {
+            result = "The line is empty";
+        } else {
+            StringBuilder builder = new StringBuilder();
+            Station current = head;
+            while (current != null) {
+                builder.append(current.getName()).append("\n");
+                current = current.getNext();
+            }
+            result = builder.toString();
+        }
+        return result;
+    }
+    
+    public boolean intersects(TrainLine other) {
+        boolean intersectionFound = false;
+        if (this != other && this.head != null && other.head != null){
+            Station current = this.head;
+            while (current != null && !intersectionFound){
+                if (other.contains(current.getName())) {
+                    intersectionFound = true;
+                } else {
+                    current = current.getNext();
+                }
+            }
+        } else if (this == other) {
+            intersectionFound = true;
+        }
+        return intersectionFound;
+    }
+
+    @Override
+    public int compareTo(trainline other){
+        int comparisonResult;
+        if (other == null){
+            throw new NullPointException("The other trainline can not be null");
+        }
+        int difference = this.numberOfStations - other.numberOfStations;
+        if (differece < 0 ){
+            comparisonResult = -1;
+        } else if (differece > 0) {
+            comparisonResult = 1;
+        } else {
+            comparisonResult = 0;
+        }
+        return comparisonResult;
+    }
 } // class TrainLine
