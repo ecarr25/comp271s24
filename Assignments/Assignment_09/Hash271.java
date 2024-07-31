@@ -2,20 +2,52 @@ public class Hash271 {
 
     /** Default size for foundation array */
     private static final int DEFAULT_SIZE = 4;
+    
+    /** Default threshold */
+    private static final double DEFAULT_THRESHOLD = 0.75;
 
     /** Foundation array of node objects */
     Node[] foundation;
 
+     private int nodeCount;
+
+     private double threshold;
+
     /** Basic constructor */
-    public Hash271(int size) {
+    public Hash271(int size, double threshold) {
         this.foundation = new Node[size];
+        this.nodeCount = 0;
+        this.threshold = threshold;
     } // basic constructor
 
     /** Default constructor */
-    public Hash271() {
-        this(DEFAULT_SIZE);
+    public Hash271(int size) {
+        this(size, DEFAULT_SIZE);
     } // default constructor
+     
+    public Hash271(){
+        this(DEFAULT_SIZE, DEFAULT_THRESHOLD);
+    }
 
+    private double getLoadFactor() {
+        return (double) this.nodeCount / this.foundation.length;
+    }
+
+    private void rehash() {
+        Node[] oldFoundation = this.foundation;
+        this.foundation = new Node[oldFoundation.length * 2];
+        this.nodeCount =0;
+
+        for (int i = 0; i < oldFoundation.length; i++){
+            Node current = oldFoundation[i];
+            while (current != null) {
+                Node next = current.getNext();
+                current.setNext(null);
+                this.put(current);
+                current = next;
+            }
+        }
+    }
     /**
      * Map an integer number to one of the positions of the underlying array. This
      * will come handy we need to find the place to chain a node.
@@ -46,6 +78,11 @@ public class Hash271 {
             }
             // Put the new node to the array position
             this.foundation[destination] = node;
+            this.nodeCount++;
+
+            if (this.getLoadFactor() > this.threshold) {
+                this.rehash();
+            }
         }
     } // method put
 
